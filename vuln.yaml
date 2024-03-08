@@ -1,0 +1,17 @@
+project: 
+  title: TODO app 
+  description: A TODO app with Jinja2 SSTI, malicious includes, and other misconfigurations
+  platform: Python Flask
+vulnerabilities:
+  - vuln:
+    id: 3E0027DF-423F-4AE5-81D4-9F72D2B49381
+    title: JINJA2 Server Side Template Injection
+    impact: High
+    category: Information Disclosure, Command Execution
+    reference: https://www.onsecurity.io/blog/server-side-template-injection-with-jinja2/
+    description: The /delete function takes raw user input and renders it in Jinja2, allowing the user to execute arbitrary code.
+    details: The "todo" query param can be used to execute commands and view output, for example delete?todo={{request[%27application%27][%27__globals__%27][%27__builtins__%27][%27__import__%27](%27os%27)[%27popen%27](%27id%27)[%27read%27]()}} will run the "id" shell command and put output to HTTP response.
+    location: todo/todo.py@25
+    method: del_todo()
+
+
