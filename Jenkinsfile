@@ -39,7 +39,7 @@ pipeline {
 
         stage ('package') {
             steps {
-              zip zipFile: 'package.zip', archive: true, glob: '*.py,requirements.txt'
+              zip zipFile: 'package.zip', archive: true, overwrite: true, glob: '*.py,requirements.txt'
                 // withMaven(maven:'maven-3') {
                 //     script {
                 //         if(isUnix() == true) {
